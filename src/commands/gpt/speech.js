@@ -41,6 +41,8 @@ const execute = async (interaction) => {
 			},
 		});
 
+    interaction.deferReply()
+
 		connection.subscribe(player);
 
 		const lang = options.getString(PARAM_LANG)
@@ -90,13 +92,12 @@ const execute = async (interaction) => {
 		const resource = createAudioResource(readableStream, { inlineVolume: true });
 
 		resource.volume.setVolume(0.5);
-
-    interaction.reply('Playing')
+    
+    interaction.editReply('Playing')
 
 		player.play(resource)
 
 		player.on(Events.Error, (error) => console.log({ error }));
-
 	} catch (error) {
 		console.error(error)
     await interaction.reply('Error!')

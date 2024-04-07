@@ -19,6 +19,8 @@ const execute = async (interaction) => {
 
 		const search = options.getString(PARAM_SEARCH)
 
+    interaction.deferReply()
+
     const response = await openai.chat.completions.create({
       model: "gpt-3.5-turbo",
       messages: [
@@ -40,7 +42,7 @@ const execute = async (interaction) => {
 
     const [choice] = response.choices
 
-    await interaction.reply(choice.message.content)
+    interaction.editReply(choice.message.content)
 	} catch (error) {
 		console.error(error)
     await interaction.reply('Error!')
